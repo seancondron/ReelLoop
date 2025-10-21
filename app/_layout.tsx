@@ -1,29 +1,53 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { StyleSheet, Text, View } from 'react-native';
+import { AuthProvider, useAuth } from '../contexts/AuthContext';
+import { SavedItemsProvider } from '../contexts/SavedItemsContext';
+import { ThemeProvider } from '../contexts/ThemeContext';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+function RootLayoutNav() {
+  const { isAuthenticated } = useAuth();
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  if (!loaded) {
-    // Async font loading only occurs in development.
-    return null;
+  // Show loading screen while checking auth status
+  if (isAuthenticated === null) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text style={styles.loadingText}>Loading...</Text>
+      </View>
+    );
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
+    <Stack 
+      key={isAuthenticated ? 'authenticated' : 'unauthenticated'} 
+      screenOptions={{ headerShown: false }}
+    >
+      <Stack.Screen name="login" />
+      <Stack.Screen name="(tabs)" />
+    </Stack>
+  );
+}
+
+export default function RootLayout() {
+  return (
+    <ThemeProvider>
+      <AuthProvider>
+        <SavedItemsProvider>
+          <RootLayoutNav />
+        </SavedItemsProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F2F2F7',
+  },
+  loadingText: {
+    fontSize: 16,
+    color: '#8E8E93',
+  },
+});

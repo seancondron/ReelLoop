@@ -1,50 +1,179 @@
-# Welcome to your Expo app 👋
+# ReelLoop 📱
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-## Get started
+ReelLoop helps you organize, prioritize, and act on your saved inspiration. Automatically import posts or links from your favorite platforms, tag and categorize them, and turn each idea into an actionable step or goal. Set reminders, track progress, and finally bring your creative inspirations to life, one saved post at a time.
 
-1. Install dependencies
+Built with Expo, React Native, TypeScript, Expo Router, Apify, and Supabase (PostgreSQL).
 
+
+## ✨ Features
+
+- **Multi-Platform Support**: Save content from TikTok, Instagram, and YouTube
+- **Smart Scraping**: Automatically extracts metadata, thumbnails, and engagement stats
+- **Organized Storage**: Categorize saved content with custom boards
+- **Dark Mode**: Multiple darkness levels for comfortable viewing
+- **Share Integration**: Easy sharing of saved content
+
+## 🚧 In Progress
+
+- **AI Summary**: Intelligent content summarization using AI
+- **Share to App**: Allow user to click share button and share directly to ReelLoop
+- **Map Pinning**: Geotag and visualize saved content on interactive maps
+- **Home Screen**: Comprehensive content review and recommended actions
+- **Login**: OAuth login functionality
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v18 or higher)
+- npm or yarn
+- Expo CLI
+- iOS Simulator (for iOS development) or Android Studio (for Android development)
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd ReelLoop
+   ```
+
+2. **Install dependencies**
    ```bash
    npm install
    ```
 
-2. Start the app
+3. **Set up environment variables**
+   ```bash
+   cp .env.example .env
+   ```
+   Fill in your API keys and configuration in the `.env` file (See 'Configuration' section below).
 
+4. **Start the development server**
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+5. **Run on your preferred platform**
+   - **iOS**: Press `i` in the terminal or scan QR code with Expo Go
+   - **Android**: Press `a` in the terminal or scan QR code with Expo Go
+   - **Web**: Press `w` in the terminal
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 🏗️ Project Structure
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```
+ReelLoop/
+├── app/                    # Main app screens (Expo Router)
+│   ├── (tabs)/            # Tab navigation screens
+│   │   ├── index.tsx      # Home screen
+│   │   ├── saved.tsx      # Saved content screen
+│   │   └── settings.tsx   # Settings screen
+│   ├── login.tsx          # Authentication screen
+│   └── _layout.tsx        # Root layout
+├── contexts/              # React Context providers
+│   ├── AuthContext.tsx    # Authentication state
+│   ├── SavedItemsContext.tsx # Saved content state
+│   └── ThemeContext.tsx  # Theme management
+├── services/              # API and scraping services
+│   ├── instagramScraper.ts
+│   ├── tiktokScraper.ts
+│   └── youtubeScraper.ts
+├── config/                # Configuration files
+│   ├── apify.ts          # Apify API configuration
+│   └── supabase.ts       # Supabase configuration
+└── lib/                   # Utility libraries
+    └── supabase.ts       # Supabase client
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🔧 Configuration
 
-## Learn more
+### Required Environment Variables
 
-To learn more about developing your project with Expo, look at the following resources:
+Create a `.env` file in the root directory with the following variables:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```env
+# Supabase Configuration
+SUPABASE_URL=your_supabase_url
+SUPABASE_ANON_KEY=your_supabase_anon_key
 
-## Join the community
+# Apify Configuration (for Instagram scraping)
+APIFY_API_TOKEN=your_apify_token
+APIFY_INSTAGRAM_ACTOR_ID=your_instagram_actor_id
+```
 
-Join our community of developers creating universal apps.
+### Database Setup
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+1. Create a Supabase project
+2. Run the SQL schema from `database/schema.sql`
+3. Update your environment variables with Supabase credentials
+
+## 📱 Usage
+
+### Saving Content
+
+1. **Open the app** and navigate to the "Saved" tab
+2. **Paste a URL** from TikTok, Instagram, or YouTube
+3. **Tap "Add Social Post"** to scrape and save the content
+4. **View saved content** in your organized boards
+
+### Managing Content
+
+- **View Details**: Tap any saved item to see full details
+- **Open Original**: Tap to open the original post in the respective app
+- **Delete**: Long press and confirm to remove items
+- **Copy URL**: Long press to copy the original URL
+
+### Settings
+
+- **Dark Mode**: Toggle between light and dark themes
+- **Darkness Level**: Choose from Gray, Dark Gray, or Black
+- **Restricted Posts**: Configure how to handle private/restricted content
+
+## 🛠️ Development
+
+### Available Scripts
+
+```bash
+# Start development server
+npm start
+
+# Run on iOS simulator
+npm run ios
+
+# Run on Android emulator
+npm run android
+
+# Run on web
+npm run web
+
+# Lint code
+npm run lint
+```
+
+### Tech Stack
+
+- **Framework**: Expo (React Native)
+- **Language**: TypeScript
+- **Navigation**: Expo Router
+- **State Management**: React Context
+- **Database**: Supabase
+- **Scraping**: Instagram Apify API. TikTok oEmbed API, YouTube oEmbed API
+- **Styling**: React Native StyleSheet
+
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [Expo](https://expo.dev) for the amazing development platform
+- [Supabase](https://supabase.com) for the backend infrastructure
+- [TikTok](https://developers.tiktok.com/doc/embed-videos/) and [YouTube](https://developers.google.com/youtube/v3) for easy to use APIs
+- [Apify](https://apify.com) for Instagram scraping capabilities
+- [React Native](https://reactnative.dev) for the mobile framework
+
+---
+
+**Made with ❤️ for content creators and social media enthusiasts**
