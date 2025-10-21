@@ -157,9 +157,8 @@ npm run lint
 - **Language**: TypeScript
 - **Navigation**: Expo Router
 - **State Management**: React Context
-- **Database**: Supabase
-- **Scraping**: Instagram Apify API. TikTok oEmbed API, YouTube oEmbed API
-- **Styling**: React Native StyleSheet
+- **Database**: Supabase (PostgreSQL)
+- **Scraping**: Instagram Apify API, TikTok oEmbed API, YouTube oEmbed API
 
 
 ## 📄 License
